@@ -318,7 +318,7 @@ export class AwsLambdaInstrumentation extends InstrumentationBase<AwsLambdaInstr
       plugin._applyRequestHook(span, event, context);
 
       return otelContext.with(trace.setSpan(parent, span), () => {
-        if (event.Records) {
+        if (event.Records && event.Records[0].eventSource === 'aws:sqs') {
           const messages = event.Records;
           const queueArn = messages[0]?.eventSourceARN;
           const queueName = queueArn?.split(':').pop() ?? 'unknown';
