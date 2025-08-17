@@ -42,14 +42,11 @@ import {
 import { pubsubPropagation } from '@opentelemetry/propagation-utils';
 import {
   ATTR_URL_FULL,
-  MESSAGINGDESTINATIONKINDVALUES_QUEUE,
   MESSAGINGOPERATIONVALUES_PROCESS,
   SEMATTRS_MESSAGING_DESTINATION,
-  SEMATTRS_MESSAGING_DESTINATION_KIND,
   SEMATTRS_MESSAGING_MESSAGE_ID,
   SEMATTRS_MESSAGING_OPERATION,
   SEMATTRS_MESSAGING_SYSTEM,
-  SEMATTRS_MESSAGING_URL,
 } from '@opentelemetry/semantic-conventions';
 import { ATTR_CLOUD_ACCOUNT_ID, ATTR_FAAS_COLDSTART } from './semconv';
 import { ATTR_FAAS_EXECUTION, ATTR_FAAS_ID } from './semconv-obsolete';
@@ -337,10 +334,7 @@ export class AwsLambdaInstrumentation extends InstrumentationBase<AwsLambdaInstr
               attributes: {
                 [SEMATTRS_MESSAGING_SYSTEM]: 'aws.sqs',
                 [SEMATTRS_MESSAGING_DESTINATION]: queueName,
-                [SEMATTRS_MESSAGING_DESTINATION_KIND]:
-                  MESSAGINGDESTINATIONKINDVALUES_QUEUE,
                 [SEMATTRS_MESSAGING_MESSAGE_ID]: message.messageId,
-                [SEMATTRS_MESSAGING_URL]: queueArn,
                 [SEMATTRS_MESSAGING_OPERATION]:
                   MESSAGINGOPERATIONVALUES_PROCESS,
               },
